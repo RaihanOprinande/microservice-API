@@ -1,0 +1,44 @@
+# version: '3'
+services:
+  php-env:
+    build: .
+    volumes:
+      - ./src:/var/www/html
+    ports: 
+      - "7070:80"
+    networks:
+      - networkuts3c
+  nginx1:
+    image: nginx
+    ports:
+      - "7071:80"
+    volumes:
+      - D:\COOLYEAH\Semester5\microservice\uts_volume\html1:/usr/share/nginx/html
+  nginx2:
+    image: nginx
+    ports:
+      - "7072:80"
+    volumes:
+      - D:\COOLYEAH\Semester5\microservice\uts_volume\html1:/usr/share/nginx/html
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: "db_uts3c"
+      MYSQL_ROOT_PASSWORD: "uts3c"
+      MYSQL_HOST: "%"
+    volumes:
+      - D:\COOLYEAH\Semester5\microservice\uts_volume\mysql_data:/var/lib/mysql/
+    networks:
+      - networkuts3c
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "7073:80"
+    environment:
+      PMA_HOST: mysql
+    networks:
+      - networkuts3c
+
+networks:
+  networkuts3c:
+    driver: bridge      
